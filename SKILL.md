@@ -38,6 +38,15 @@ open -na "Google Chrome" --args --remote-debugging-port=9222 --user-data-dir=/tm
 # 在打开的 Chrome 里登录/加载扩展，然后 browser_open 会连接它
 ```
 
+## 故障排查
+
+| 现象 | 处理 |
+|---|---|
+| `browser_open` 连不上（cdp） | 确认 Chrome 以 `--remote-debugging-port=9222` 启动、`browser.cdpUrl` 一致、`--user-data-dir` 用独立目录（不能是默认 profile） |
+| 需要扩展但页面没加载 | 无头模式不支持扩展；必须 `browser.mode: cdp` 连自己的 Chrome |
+| 截图后 analyze_image 报权限 | 首次使用需在 系统设置 → 隐私与安全性 → 屏幕录制 授权终端 |
+| 页面元素没出现在 refs 里 | 元素不可见或未渲染（脚本只标记可见元素）；先 `browser_eval("scrollTo(0, document.body.scrollHeight)")` 再重新 open |
+
 ## 注意
 
 - 一个会话共享同一个浏览器页面；`browser_open` 会导航当前页面。
