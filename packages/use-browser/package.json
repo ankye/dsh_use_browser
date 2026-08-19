@@ -16,6 +16,7 @@
   },
   "files": [
     "lib/index.js",
+    "cordis.patch.yml",
     "lib/types/**/*.d.ts"
   ],
   "dsh": {
