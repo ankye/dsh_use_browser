@@ -1,0 +1,5 @@
+# @deepseek-ai/dsh-tool-use-browser bundle patch: mounts the Codex-style
+# browser tools on the HOST plane so every agent preset sees them.
+- insert:
+    - id: tool-use-browser
+      name: '@deepseek-ai/dsh-tool-use-browser'
