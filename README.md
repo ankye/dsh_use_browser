@@ -14,6 +14,17 @@ Codex-style **local browser automation** for DeepSeek Harness: open pages, inter
 | `browser_screenshot` | Save a PNG → pair with `analyze_image` (the vision plugin) to "see" the page |
 | `browser_eval` | Run JavaScript in the page |
 
+## Requirements & notes
+
+- Runtime: Node 22+; `playwright ~1.61.0` is the only runtime dependency and
+  is resolved from the deploying harness (peer of the deployment, not bundled).
+- One session shares a single browser page: `browser_open` navigates the
+  current page; later calls act on that page.
+- Screenshots land in `/tmp/dsh-browser-*.png` — pair with `analyze_image`
+  (the vision plugin) to "see" the page, since the model context stays text.
+- Headless mode cannot load Chrome extensions; use `mode: cdp` for extensions
+  or for visible, watchable automation.
+
 ## Install into an official DeepSeek Harness (no repo modification)
 
 The package declares `dsh.bundle`, so `dsh plugin add` mounts it automatically:
