@@ -2,5 +2,8 @@
   "name": "dsh-use-browser",
   "private": true,
   "description": "通用浏览器操作插件源码：@deepseek-ai/dsh-tool-use-browser（Playwright 无头 / CDP 双后端）",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "node --experimental-strip-types --test tests/package-contract.test.mjs tests/mark-refs.test.ts"
+  }
 }

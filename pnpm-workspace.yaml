@@ -1,2 +1,7 @@
 packages:
   - packages/*
+
+# The @deepseek-ai/* peers are satisfied by the deploying harness at runtime;
+# a standalone clone must not auto-install them (their rc releases pull
+# unpublished packages). Tests import only type-only seams from them.
+autoInstallPeers: false
