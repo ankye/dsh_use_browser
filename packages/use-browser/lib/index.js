@@ -866,7 +866,8 @@ async function openAndCollect(session, config, url) {
 	const page = await ensurePage(session, config);
 	await page.goto(url, { timeout: config.timeoutMs });
 	await page.waitForLoadState("domcontentloaded", { timeout: config.timeoutMs });
-	const refs = await page.evaluate(MARK_REFS_JS);
+	const raw = await page.evaluate(MARK_REFS_JS);
+	const refs = JSON.parse(raw);
 	return {
 		title: await page.title(),
 		url: page.url(),

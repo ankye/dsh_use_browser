@@ -109,7 +109,10 @@ export async function openAndCollect(
   const page = await ensurePage(session, config)
   await page.goto(url, { timeout: config.timeoutMs })
   await page.waitForLoadState('domcontentloaded', { timeout: config.timeoutMs })
-  const refs = await page.evaluate<string>(MARK_REFS_JS) as unknown as ElementRef[]
+  // page.evaluate(string) evaluates the string as an expression and returns
+  // its value — MARK_REFS_JS is an IIFE returning JSON, so parse it back.
+  const raw = await page.evaluate<string>(MARK_REFS_JS)
+  const refs = JSON.parse(raw) as ElementRef[]
   return { title: await page.title(), url: page.url(), refs }
 }
 
