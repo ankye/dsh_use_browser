@@ -1,3 +1,7 @@
+---
+name: use-browser
+description: "Codex 风格的本地浏览器自动化（配合 @deepseek-ai/dsh-tool-use-browser 插件）：打开页面并用 @e 引用操作元素（点击/填表）、提取文本、截图（配合 analyze_image 看图）、页面内执行 JS。后端可选 Playwright 无头或 CDP 连接自己的 Chrome。Triggers: browser, web automation, browse web, navigate, click, fill form, type, screenshot page, scrape, playwright, headless browser, cdp, web agent, 浏览器, 网页操作, 打开网页"
+---
 # Use Browser
 
 通用浏览器操作技能（配合 `@deepseek-ai/dsh-tool-use-browser` 插件使用）。
