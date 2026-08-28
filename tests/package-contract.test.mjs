@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url'
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 
 /** Peer range the storefront guide prescribes for @deepseek-ai/dsh-* peers. */
-const DSH_PEER_RANGE = '>=0.0.1-rc.1 <0.1.0 || >=0.1.0-rc.1 <0.2.0-0'
+const DSH_PEER_RANGE = '>=0.1.2-alpha.1 <0.2.0-0'
 
 /** @deepseek-ai/cordis is the vendored framework at 4.x, not a dsh rc release. */
 const CORDIS_RANGE = '^4.0.0'
