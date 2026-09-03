@@ -12,14 +12,13 @@
 import z from '@deepseek-ai/schemastery';
 import { defineTool, TOOL_ABORTED } from '@deepseek-ai/dsh-tools';
 import { HarnessError } from '@deepseek-ai/dsh-llm';
-import { installSettingsSection, settingsNamespace } from '@deepseek-ai/dsh-settings';
 import { ensurePage, openAndCollect, refSelector, } from "./session.js";
 /** Cordis plugin name used by loader diagnostics. */
 export const name = 'tool-use-browser';
 /** Services this plugin consumes (all host-plane; it publishes nothing). */
 export const inject = ['tools', 'systemPrompt'];
 /** Settings namespace carrying the browser backend selection. */
-export const BROWSER_SETTINGS_NAMESPACE = settingsNamespace('browser');
+export const BROWSER_SETTINGS_NAMESPACE = 'browser';
 /** Runtime configuration schema for the browser plugin. */
 export const Config = z.object({
     mode: z.string().default('playwright'),
@@ -42,9 +41,11 @@ function abortedError() {
  */
 export function apply(ctx, config) {
     let current = () => config;
-    installSettingsSection(ctx, BROWSER_SETTINGS_NAMESPACE, Config, config, {
-        setSource: (source) => { current = source; },
-        onChange: () => { },
+    ctx.inject(['settings'], (settingsCtx) => {
+        settingsCtx.settings.installSection(ctx, BROWSER_SETTINGS_NAMESPACE, Config, config, {
+            setSource: (source) => { current = source; },
+            onChange: () => { },
+        });
     });
     const session = {};
     ctx.systemPrompt.section({

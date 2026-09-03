@@ -4,6 +4,10 @@ English | [中文](README.zh.md)
 
 Codex-style **local browser automation** for DeepSeek Harness: open pages, interact by `@e` references, extract content, screenshot, and run page JS — with two backends: managed **headless Playwright** (fast, invisible) or **CDP connected to your own Chrome** (visible, and loads Chrome extensions that headless cannot).
 
+## Compatibility
+
+This revision requires DeepSeek Harness core `0.1.2-alpha.5` or later within the `0.1.x` line. It uses the Settings service API introduced in that core release.
+
 ## Capabilities
 
 | Tool | Purpose |

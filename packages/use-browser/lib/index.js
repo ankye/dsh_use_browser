@@ -1,6 +1,5 @@
 import { TOOL_ABORTED, defineTool } from "@deepseek-ai/dsh-tools";
 import { HarnessError } from "@deepseek-ai/dsh-llm";
-import { installSettingsSection, settingsNamespace } from "@deepseek-ai/dsh-settings";
 //#region ../../../vendor/cosmokit/src/misc.ts
 /** Return true when a value is `null` or `undefined`. */
 function isNullable(value) {
@@ -898,7 +897,7 @@ const name = "tool-use-browser";
 /** Services this plugin consumes (all host-plane; it publishes nothing). */
 const inject = ["tools", "systemPrompt"];
 /** Settings namespace carrying the browser backend selection. */
-const BROWSER_SETTINGS_NAMESPACE = settingsNamespace("browser");
+const BROWSER_SETTINGS_NAMESPACE = "browser";
 /** Runtime configuration schema for the browser plugin. */
 const Config = Schema.object({
 	mode: Schema.string().default("playwright"),
@@ -921,11 +920,13 @@ function abortedError() {
 */
 function apply(ctx, config) {
 	let current = () => config;
-	installSettingsSection(ctx, BROWSER_SETTINGS_NAMESPACE, Config, config, {
-		setSource: (source) => {
-			current = source;
-		},
-		onChange: () => {}
+	ctx.inject(["settings"], (settingsCtx) => {
+		settingsCtx.settings.installSection(ctx, BROWSER_SETTINGS_NAMESPACE, Config, config, {
+			setSource: (source) => {
+				current = source;
+			},
+			onChange: () => {}
+		});
 	});
 	const session = {};
 	ctx.systemPrompt.section({

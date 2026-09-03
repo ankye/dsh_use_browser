@@ -17,7 +17,7 @@ export declare const name = "tool-use-browser";
 /** Services this plugin consumes (all host-plane; it publishes nothing). */
 export declare const inject: string[];
 /** Settings namespace carrying the browser backend selection. */
-export declare const BROWSER_SETTINGS_NAMESPACE: import("@deepseek-ai/dsh-settings").SettingsNamespace;
+export declare const BROWSER_SETTINGS_NAMESPACE = "browser";
 /** Runtime configuration schema for the browser plugin. */
 export declare const Config: z<BrowserConfig>;
 /**

@@ -16,7 +16,7 @@ import type {} from '@deepseek-ai/dsh-agent'
 import type {} from '@deepseek-ai/dsh-system-prompt'
 import { defineTool, TOOL_ABORTED, type ToolRunContext } from '@deepseek-ai/dsh-tools'
 import { HarnessError } from '@deepseek-ai/dsh-llm'
-import { installSettingsSection, settingsNamespace } from '@deepseek-ai/dsh-settings'
+import type {} from '@deepseek-ai/dsh-settings'
 import {
   ensurePage, openAndCollect, refSelector,
   type BrowserConfig, type BrowserSession, type ElementRef,
@@ -29,7 +29,7 @@ export const name = 'tool-use-browser'
 export const inject = ['tools', 'systemPrompt']
 
 /** Settings namespace carrying the browser backend selection. */
-export const BROWSER_SETTINGS_NAMESPACE = settingsNamespace('browser')
+export const BROWSER_SETTINGS_NAMESPACE = 'browser'
 
 /** Runtime configuration schema for the browser plugin. */
 export const Config: z<BrowserConfig> = z.object({
@@ -84,9 +84,11 @@ interface EvalResult {
  */
 export function apply(ctx: Context, config: BrowserConfig): void {
   let current: () => BrowserConfig = () => config
-  installSettingsSection(ctx, BROWSER_SETTINGS_NAMESPACE, Config, config, {
-    setSource: (source) => { current = source },
-    onChange: () => {},
+  ctx.inject(['settings'], (settingsCtx) => {
+    settingsCtx.settings.installSection(ctx, BROWSER_SETTINGS_NAMESPACE, Config, config, {
+      setSource: (source) => { current = source },
+      onChange: () => {},
+    })
   })
   const session: BrowserSession = {}
 

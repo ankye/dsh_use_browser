@@ -4,6 +4,10 @@
 
 面向 DeepSeek Harness 的 **codex 风格本地浏览器操作**插件：打开页面、按 `@e` 引用交互、提取内容、截图、执行页面 JS——**双后端**：托管**无头 Playwright**（快、不可见）或 **CDP 连接你自己的 Chrome**（可见，且能加载无头模式做不到的 Chrome 扩展）。
 
+## 兼容性
+
+本修订要求 DeepSeek Harness core 为 `0.1.2-alpha.5` 或以上的 `0.1.x` 版本；它使用该 core 版本引入的 Settings 服务 API。
+
 ## 能力
 
 | 工具 | 作用 |

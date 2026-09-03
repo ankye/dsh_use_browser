@@ -15,8 +15,11 @@ import { fileURLToPath } from 'node:url'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 
-/** Peer range the storefront guide prescribes for @deepseek-ai/dsh-* peers. */
+/** General peer range for the maintained 0.1.2 prerelease line. */
 const DSH_PEER_RANGE = '>=0.1.2-alpha.1 <0.2.0-0'
+
+/** Settings service API consumed by this revision. */
+const SETTINGS_PEER_RANGE = '>=0.1.2-alpha.5 <0.2.0-0'
 
 /** @deepseek-ai/cordis is the vendored framework at 4.x, not a dsh rc release. */
 const CORDIS_RANGE = '^4.0.0'
@@ -46,6 +49,8 @@ test('@deepseek-ai peers use the documented prerelease branch (cordis at ^4.0.0)
     for (const [name, range] of Object.entries(peers)) {
       if (name === '@deepseek-ai/cordis') {
         assert.equal(range, CORDIS_RANGE, `${pkg.name}: cordis peer must be ${CORDIS_RANGE}`)
+      } else if (name === '@deepseek-ai/dsh-settings') {
+        assert.equal(range, SETTINGS_PEER_RANGE, `${pkg.name}: ${name} peer must support the Settings service API`)
       } else if (name.startsWith('@deepseek-ai/dsh-')) {
         assert.equal(range, DSH_PEER_RANGE, `${pkg.name}: ${name} peer must be the prerelease branch range`)
       }
